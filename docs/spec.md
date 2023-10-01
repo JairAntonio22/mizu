@@ -10,7 +10,6 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 
 | Literal | Name             |
 |---------|------------------|
-|`.`      | dot              |
 |`:`      | colon            |
 |`;`      | semicolon        |
 |`?`      | question mark    |
@@ -29,6 +28,7 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 |`>`      | greater          |
 |`<=`     | less or equal    |
 |`>=`     | greater or equal |
+|`.`      | dot              |
 
 ### Keywords
 
@@ -42,22 +42,22 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 
 ### Regex based tokens
 
-| Regex               | Subpart     |
-|---------------------|-------------|
-| `[a-zA-Z]`          | letter      |
-| `[0-9]`             | digit       |
-| `[+-]`              | sign        |
-| `letter | digit`    | alNum       |
-| `digit (_? digit)*` | number      |
-| `\"`                | escQuote    |
-| `[^\"]`             | notEscQuote |
-
 | Regex                   | Name   |
 |-------------------------|--------|
 | `letter alNum*`         | symbol |
 | `sign? number`          | int    |
 | `sign? number . number` | float  |
 | `" notEscQuote* "`      | string |
+
+| Regex               | Subtoken    |
+|---------------------|-------------|
+| `[a-zA-Z]`          | letter      |
+| `[0-9]`             | digit       |
+| `[+-]`              | sign        |
+| `letter \| digit`   | alNum       |
+| `digit (_? digit)*` | number      |
+| `\"`                | escQuote    |
+| `[^\"]`             | notEscQuote |
 
 ## Grammar
 
