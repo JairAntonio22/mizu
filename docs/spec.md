@@ -6,19 +6,22 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 
 ## Tokens
 
-### Symbols
-
+**Separators**
 | Literal | Name             |
 |---------|------------------|
 |`:`      | colon            |
 |`;`      | semicolon        |
 |`?`      | question mark    |
-|`::`     | define constant  |
-|`:=`     | define variable  |
 |`(` `)`  | parenthesis      |
 |`{` `}`  | curly braces     |
 |`[` `]`  | brackets         |
 |`[` `]`  | brackets         |
+
+**Operators**
+| Literal | Name             |
+|---------|------------------|
+|`::`     | define constant  |
+|`:=`     | define variable  |
 |`+`      | addition         |
 |`-`      | subtract         |
 |`*`      | multiplication   |
@@ -30,24 +33,26 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 |`>=`     | greater or equal |
 |`.`      | dot              |
 
-### Keywords
+**Keywords**
 
-`if` `else` `switch` `case`
+- `if` `else` `switch` `case`
 
-`loop` `skip` `break`
+- `loop` `skip` `break`
 
-`return`
+- `return`
 
-`not` `and` `or`
+- `not` `and` `or`
 
-### Regex based tokens
+**Regex based tokens**
 
-| Regex                   | Name   |
-|-------------------------|--------|
-| `letter alNum*`         | symbol |
-| `sign? number`          | int    |
-| `sign? number . number` | float  |
-| `" notEscQuote* "`      | string |
+| Regex                   | Name       |
+|-------------------------|------------|
+| `letter alNum*`         | identifier |
+| `sign? number`          | int        |
+| `sign? number . number` | float      |
+| `" notEscQuote* "`      | string     |
+| `true`                  | true       |
+| `false`                 | false      |
 
 | Regex               | Subtoken    |
 |---------------------|-------------|
