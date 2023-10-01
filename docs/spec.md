@@ -7,15 +7,14 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 ## Tokens
 
 **Separators**
-| Literal | Name             |
-|---------|------------------|
-|`:`      | colon            |
-|`;`      | semicolon        |
-|`?`      | question mark    |
-|`(` `)`  | parenthesis      |
-|`{` `}`  | curly braces     |
-|`[` `]`  | brackets         |
-|`[` `]`  | brackets         |
+| Literal | Name         |
+|---------|--------------|
+|`:`      | colon        |
+|`;`      | semicolon    |
+|`(` `)`  | parenthesis  |
+|`{` `}`  | curly braces |
+|`[` `]`  | brackets     |
+|`[` `]`  | brackets     |
 
 **Operators**
 | Literal | Name             |
@@ -32,16 +31,29 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 |`<=`     | less or equal    |
 |`>=`     | greater or equal |
 |`.`      | dot              |
+|`?`      | question mark    |
 
 **Keywords**
 
-- `if` `else` `switch` `case`
-
-- `loop` `skip` `break`
-
-- `return`
-
-- `not` `and` `or`
+- Conditional branching
+    - `if`
+    - `else`
+    - `switch`
+    - `case`
+- Looping control
+    - `loop`
+    - `skip`
+    - `break`
+- Function control
+    - `return`
+- Boolean logic
+    - `not`
+    - `and`
+    - `or`
+- Constans
+    - `true`
+    - `false`
+    - `nil`
 
 **Regex based tokens**
 
@@ -51,8 +63,6 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 | `sign? number`          | int        |
 | `sign? number . number` | float      |
 | `" notEscQuote* "`      | string     |
-| `true`                  | true       |
-| `false`                 | false      |
 
 | Regex               | Subtoken    |
 |---------------------|-------------|
