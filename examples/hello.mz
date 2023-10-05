@@ -1,0 +1,21 @@
+main :: {
+    limit :: 100
+    primes := [2, 3]
+
+    loop k := 5; k < limit; k += 2 {
+        isPrime := true
+
+        loop prime :: primes {
+            if k % prime == 0 {
+                isPrime = false
+                break
+            }
+        }
+
+        if isPrime {
+            primes.append(k)
+        }
+    }
+
+    println(primes)
+}

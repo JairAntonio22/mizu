@@ -12,8 +12,7 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 |`:`      | colon        |
 |`;`      | semicolon    |
 |`(` `)`  | parenthesis  |
-|`{` `}`  | curly braces |
-|`[` `]`  | brackets     |
+|`{` `}`  | braces       |
 |`[` `]`  | brackets     |
 
 **Operators**
@@ -50,19 +49,19 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
     - `not`
     - `and`
     - `or`
-- Constans
+- Constants
     - `true`
     - `false`
     - `nil`
 
 **Regex based tokens**
 
-| Regex                   | Name       |
-|-------------------------|------------|
-| `letter alNum*`         | identifier |
-| `sign? number`          | int        |
-| `sign? number . number` | float      |
-| `" notEscQuote* "`      | string     |
+| Regex                   | Name   |
+|-------------------------|--------|
+| `letter alNum*`         | id     |
+| `sign? number`          | int    |
+| `sign? number . number` | float  |
+| `" notEscQuote* "`      | string |
 
 | Regex               | Subtoken    |
 |---------------------|-------------|
