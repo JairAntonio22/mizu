@@ -56,20 +56,18 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 
 **Regex based tokens**
 
-| Regex                   | Name   |
-|-------------------------|--------|
-| `letter alNum*`         | id     |
-| `sign? number`          | int    |
-| `sign? number . number` | float  |
-| `" notEscQuote* "`      | string |
+| Regex               | Name    |
+|---------------------|---------|
+| `letter alNum*`     | id      |
+| `digit (_? digit)*` | integer |
+| `integer . integer` | float   |
+| `" notEscQuote* "`  | string  |
 
 | Regex               | Subtoken    |
 |---------------------|-------------|
 | `[a-zA-Z]`          | letter      |
 | `[0-9]`             | digit       |
-| `[+-]`              | sign        |
 | `letter \| digit`   | alNum       |
-| `digit (_? digit)*` | number      |
 | `\"`                | escQuote    |
 | `[^\"]`             | notEscQuote |
 

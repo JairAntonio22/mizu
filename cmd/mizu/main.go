@@ -17,9 +17,8 @@ func main() {
 	reader := bufio.NewReader(file)
 	l := lexer.NewLexer(reader)
 
-	for {
+	for i := 0; i < 20; i++ {
 		token := l.Read()
 		fmt.Println(token)
-		break
 	}
 }

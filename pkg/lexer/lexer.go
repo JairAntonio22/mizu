@@ -2,6 +2,7 @@ package lexer
 
 import (
 	"bufio"
+	"io"
 	"strings"
 	"unicode"
 
@@ -33,41 +34,69 @@ func (l *Lexer) Read() structs.Token {
 		return l.currToken
 	}
 
+	if unicode.IsDigit(r) {
+		l.readNumber()
+		return l.currToken
+	}
+
 	return structs.Token{}
 }
 
-func (l *Lexer) readRune() rune {
-	r, _, err := l.reader.ReadRune()
-	if err != nil {
-		panic(err) // when does ReadRune returns error?
-	}
-
-	l.column += 1
-
-	if r == '\n' {
-		l.line += 1
-		l.column = 0
-	}
-
-	l.currRune = r
-	return r
-}
-
 func (l *Lexer) readKeywordOrId() {
-	column := l.column
 	l.builder.WriteRune(l.currRune)
 
-	for {
-		r := l.readRune()
+	column := l.column
+	r := l.readRune()
 
-		if !unicode.IsLetter(r) && !unicode.IsDigit(r) {
-			break
-		}
-
+	for unicode.IsLetter(r) || unicode.IsDigit(r) {
 		l.builder.WriteRune(r)
+		r = l.readRune()
 	}
 
+	l.reader.UnreadRune()
 	l.buildCurrToken(column)
+}
+
+func (l *Lexer) readNumber() {
+	l.builder.WriteRune(l.currRune)
+
+	column := l.column
+	r := l.readRune()
+
+	for unicode.IsDigit(r) {
+		l.builder.WriteRune(r)
+		r = l.readRune()
+	}
+
+	l.reader.UnreadRune()
+	l.buildCurrToken(column)
+}
+
+func (l *Lexer) readRune() rune {
+	for {
+		r, _, err := l.reader.ReadRune()
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+
+			panic(err)
+		}
+
+		if r == '\n' {
+			l.line += 1
+			l.column = 0
+		}
+
+		l.column += 1
+
+		if !unicode.IsSpace(r) {
+			l.currRune = r
+			break
+		}
+	}
+
+	return l.currRune
 }
 
 func (l *Lexer) buildCurrToken(column uint) {
