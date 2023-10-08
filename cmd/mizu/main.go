@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	file, err := os.Open("examples/hello.mz")
+	file, err := os.Open("examples/primes.mz")
 	if err != nil {
 		fmt.Println(err)
 	}
