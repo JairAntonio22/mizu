@@ -1,4 +1,4 @@
-package tokens
+package token
 
 type Token struct {
 	TokType TokType
@@ -12,10 +12,7 @@ func NewToken(tokType TokType, literal string) Token {
 		return token
 	}
 
-	return Token{
-		TokType: tokType,
-		Literal: literal,
-	}
+	return Token{TokType: tokType, Literal: literal}
 }
 
 func (t Token) String() string {

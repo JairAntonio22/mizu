@@ -1,12 +1,12 @@
-package scan
+package scanner
 
 import (
 	"bufio"
 	"io"
 	"strings"
-	"unicode"
+	. "unicode"
 
-	. "github.com/JairAntonio22/pkg/scan/tokens"
+	. "github.com/JairAntonio22/pkg/mizu/token"
 )
 
 type Scanner struct {
@@ -15,7 +15,7 @@ type Scanner struct {
 	builder strings.Builder
 }
 
-func NewScanner(r *bufio.Reader) *Scanner {
+func New(r *bufio.Reader) *Scanner {
 	return &Scanner{reader: r}
 }
 
@@ -26,7 +26,7 @@ func (s *Scanner) Read() Token {
 
 	r := s.readRune()
 
-	for unicode.IsSpace(r) {
+	for IsSpace(r) {
 		if r == '\n' {
 			return Eol
 		}
@@ -38,11 +38,11 @@ func (s *Scanner) Read() Token {
 		return Eof
 	}
 
-	if unicode.IsLetter(r) {
+	if IsLetter(r) {
 		return s.readIdentifier(r)
 	}
 
-	if unicode.IsDigit(r) {
+	if IsDigit(r) {
 		return s.readNumber(r)
 	}
 
@@ -65,6 +65,7 @@ func (s *Scanner) Read() Token {
 		}
 
 		s.reader.UnreadRune()
+		return Assign
 
 	case '<':
 		if nextRune := s.readRune(); nextRune == '=' {
@@ -99,35 +100,25 @@ func (s *Scanner) Read() Token {
 }
 
 func (s *Scanner) readIdentifier(first rune) Token {
-	s.builder.WriteRune(first)
-	r := s.readRune()
+	s.builder.Reset()
 
-	for unicode.IsLetter(r) || unicode.IsDigit(r) {
+	for r := first; IsLetter(r) || IsDigit(r); r = s.readRune() {
 		s.builder.WriteRune(r)
-		r = s.readRune()
 	}
 
-	literal := s.builder.String()
-	token := NewToken(TypeIdentifier, literal)
-	s.builder.Reset()
 	s.reader.UnreadRune()
-	return token
+	return NewToken(TypeIdentifier, s.builder.String())
 }
 
 func (s *Scanner) readNumber(first rune) Token {
-	s.builder.WriteRune(first)
-	r := s.readRune()
+	s.builder.Reset()
 
-	for unicode.IsDigit(r) {
+	for r := first; IsDigit(r); r = s.readRune() {
 		s.builder.WriteRune(r)
-		r = s.readRune()
 	}
 
-	literal := s.builder.String()
-	token := NewToken(TypeInteger, literal)
-	s.builder.Reset()
 	s.reader.UnreadRune()
-	return token
+	return NewToken(TypeInteger, s.builder.String())
 }
 
 func (l *Scanner) readRune() rune {

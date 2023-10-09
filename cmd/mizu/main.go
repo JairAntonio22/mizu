@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/JairAntonio22/pkg/scan"
-	"github.com/JairAntonio22/pkg/scan/tokens"
+	"github.com/JairAntonio22/pkg/mizu/scanner"
+	"github.com/JairAntonio22/pkg/mizu/token"
 )
 
 func main() {
@@ -17,19 +17,16 @@ func main() {
 	}
 
 	reader := bufio.NewReader(file)
-	scanner := scan.NewScanner(reader)
-	token := scanner.Read()
+	s := scanner.New(reader)
 
 	start := time.Now()
 
-	for token != tokens.Eof {
-		if token == tokens.Eol {
-			fmt.Println()
+	for t := s.Read(); t != token.Eof; t = s.Read() {
+		if t == token.Eol {
+			fmt.Printf("\n")
 		} else {
-			fmt.Printf("%v ", token)
+			fmt.Printf("%v ", t)
 		}
-
-		token = scanner.Read()
 	}
 
 	fmt.Printf("Time taken: %v\n", time.Since(start))
