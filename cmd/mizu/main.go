@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/JairAntonio22/pkg/mizu"
-	"github.com/JairAntonio22/pkg/mizu/tokens"
+	"github.com/JairAntonio22/pkg/scan"
+	"github.com/JairAntonio22/pkg/scan/tokens"
 )
 
 func main() {
@@ -17,8 +17,8 @@ func main() {
 	}
 
 	reader := bufio.NewReader(file)
-	lexer := mizu.NewLexer(reader)
-	token := lexer.Read()
+	scanner := scan.NewScanner(reader)
+	token := scanner.Read()
 
 	start := time.Now()
 
@@ -29,7 +29,7 @@ func main() {
 			fmt.Printf("%v ", token)
 		}
 
-		token = lexer.Read()
+		token = scanner.Read()
 	}
 
 	fmt.Printf("Time taken: %v\n", time.Since(start))
