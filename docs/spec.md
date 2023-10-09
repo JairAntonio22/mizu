@@ -9,6 +9,7 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 **Separators**
 | Literal | Name         |
 |---------|--------------|
+|`,`      | comma        |
 |`:`      | colon        |
 |`;`      | semicolon    |
 |`(` `)`  | parenthesis  |
@@ -20,11 +21,14 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 |---------|------------------|
 |`::`     | define constant  |
 |`:=`     | define variable  |
+|`=`      | assign           |
 |`+`      | addition         |
 |`-`      | subtract         |
 |`*`      | multiplication   |
 |`/`      | division         |
 |`%`      | mod              |
+|`!=`     | mod              |
+|`==`     | mod              |
 |`<`      | less             |
 |`>`      | greater          |
 |`<=`     | less or equal    |

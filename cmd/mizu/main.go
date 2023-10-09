@@ -4,8 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"time"
 
-	"github.com/JairAntonio22/pkg/lexer"
+	"github.com/JairAntonio22/pkg/mizu"
+	"github.com/JairAntonio22/pkg/mizu/tokens"
 )
 
 func main() {
@@ -15,10 +17,20 @@ func main() {
 	}
 
 	reader := bufio.NewReader(file)
-	l := lexer.NewLexer(reader)
+	lexer := mizu.NewLexer(reader)
+	token := lexer.Read()
 
-	for i := 0; i < 20; i++ {
-		token := l.Read()
-		fmt.Println(token)
+	start := time.Now()
+
+	for token != tokens.Eof {
+		if token == tokens.Eol {
+			fmt.Println()
+		} else {
+			fmt.Printf("%v ", token)
+		}
+
+		token = lexer.Read()
 	}
+
+	fmt.Printf("Time taken: %v\n", time.Since(start))
 }
