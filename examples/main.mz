@@ -1,0 +1,63 @@
+main :: {
+    println(getPrimes(10)); # [2 3 5 7 9 11 13 17 19 23]
+
+    table, _ :: openCsv("data.csv");
+    println(data); # [["x" "y"] ["0" "1"] ["4" "3"] ["2" "2"]]
+
+    points = table[1:].map(\row -> row.map(value -> stoi(value));
+
+    center :: getCentroid(points);
+    println(center);
+}
+
+getPrimes :: (n int) -> []int {
+    primes := [2, 3];
+
+    for k := 5; len(primes) < 10; k += 2 {
+        if primes.all(\prime -> k % prime != 0) {
+            primes.append(k);
+        }
+    }
+
+    return primes;
+}
+
+openCsv :: (path string) -> (?[][]string, error) {
+    file, err := open(path);
+
+    if file == nil {
+        return nil, err;
+    }
+
+    defer close(file);
+
+    scanner := new Scanner(file);
+    table := new [][]string;
+
+    loop {
+        line :: scanner.readln();
+
+        if scanner.isDone() {
+            break;
+        }
+
+        row :: line.split(',');
+        table.append(row);
+    }
+
+    return table, nil;
+}
+
+getCentroid :: (vecs [][]int) -> []int {
+    if vecs.len() == 0 {
+        return new []int;
+    }
+
+    if vecs.len() == 1 {
+        return vecs[0];
+    }
+
+    return vecs[1:]
+        .reduce(\vec, acc -> vec + acc, vecs[0])
+        .map(\comp -> comp / vecs.len());
+}
