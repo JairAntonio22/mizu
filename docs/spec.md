@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Mizu aims to be a simple programming language for algorithmic problem solving.
+Mizu to a multi-paradigm programming language for algorithmic problem solving.
 
 ## Tokens
 
@@ -12,6 +12,9 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 |`,`      | comma        |
 |`:`      | colon        |
 |`;`      | semicolon    |
+|`_`      | placeholder  |
+|`\`      | lambda       |
+|`->`     | arrow        |
 |`(` `)`  | parenthesis  |
 |`{` `}`  | braces       |
 |`[` `]`  | brackets     |
@@ -22,60 +25,90 @@ Mizu aims to be a simple programming language for algorithmic problem solving.
 |`::`     | define constant  |
 |`:=`     | define variable  |
 |`=`      | assign           |
-|`+`      | addition         |
-|`-`      | subtract         |
-|`*`      | multiplication   |
-|`/`      | division         |
+|`+`      | add              |
+|`-`      | sub              |
+|`*`      | mul              |
+|`/`      | div              |
 |`%`      | mod              |
-|`!=`     | mod              |
-|`==`     | mod              |
+|`==`     | eq               |
+|`!=`     | neq              |
 |`<`      | less             |
 |`>`      | greater          |
 |`<=`     | less or equal    |
 |`>=`     | greater or equal |
+|`or`     | boolean or       |
+|`and`    | boolean and      |
+|`not`    | boolean not      |
 |`.`      | dot              |
-|`?`      | question mark    |
 
 **Keywords**
 
-- Conditional branching
-    - `if`
-    - `else`
-    - `switch`
-    - `case`
-- Looping control
-    - `loop`
-    - `skip`
-    - `break`
-- Function control
-    - `return`
-- Boolean logic
-    - `not`
-    - `and`
-    - `or`
-- Constants
+- Control flow
+    - Conditions
+        - `if`
+        - `else`
+        - `switch`
+        - `case`
+    - Loops
+        - `loop`
+        - `skip`
+        - `break`
+    - Functions
+        - `return`
+        - `defer`
+- Literals
     - `true`
     - `false`
-    - `nil`
+- Memory allocation
+    - `new`
 
 **Regex based tokens**
 
 | Regex               | Name    |
 |---------------------|---------|
 | `letter alNum*`     | id      |
-| `digit (_? digit)*` | integer |
+| `digit (_? digit)*` | int     |
 | `integer . integer` | float   |
 | `" notEscQuote* "`  | string  |
+| `# .* #`            | comment |
+| `# .* \n`           | comment |
 
-| Regex               | Subtoken    |
-|---------------------|-------------|
-| `[a-zA-Z]`          | letter      |
-| `[0-9]`             | digit       |
-| `letter \| digit`   | alNum       |
-| `\"`                | escQuote    |
-| `[^\"]`             | notEscQuote |
+| Regex             | Subtoken     |
+|-------------------|--------------|
+| `[a-zA-Z]`        | letter       |
+| `[0-9]`           | digit        |
+| `letter \| digit` | alNum        |
+| `\"`              | escQuote     |
+| `[^\"]`           | notEscQuote  |
 
 ## Grammar
+
+```
+Program
+    : Defintion+
+
+Definition
+    : id ('::' | ':=') (FunctionDefinition | TypeDefinition | Expression ';')
+
+FunctionDefinition
+    : FunctionArgumentList? (Type ReturnTypeList)? '{' StatementList '}'
+
+FunctionArgumentList
+    : '(' TypedArgumentList ')'
+
+TypedArgumentsList
+    : TypedArguments (';' TypedArgumentsList)?
+
+TypedArguments
+    : id (',' id)* Type
+
+ReturnTypeList
+    : '(' TypeList ')'
+
+TypeList
+    : Type (',' TypeList)?
+
+```
 
 ## IR Code
 
